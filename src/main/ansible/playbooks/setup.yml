@@ -1,5 +1,5 @@
 ---
-- name: Main Playbook
+- name: com.newcomb.Main Playbook
   hosts: localhost
   become: yes
 
