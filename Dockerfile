@@ -9,3 +9,4 @@ RUN apk add python3
 RUN apk add ansible
 RUN apk add openssh
 
+# change root password

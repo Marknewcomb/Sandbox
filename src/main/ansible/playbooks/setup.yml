@@ -1,6 +1,7 @@
 ---
 - name: Main Playbook
   hosts: localhost
+  become: yes
 
   tasks:
     - name: Update All
