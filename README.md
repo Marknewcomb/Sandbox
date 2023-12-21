@@ -2,33 +2,49 @@
 
 ## Topics Covered:
 - Python
+  - python docs
 - Bash
+  - Wooledge wiki bash
 - Java
+  - dev . java docs
 - Junit
+  - junit5 user guide
 - Git
+  - git scm
 - Maven
+  - Maven docs
 - C++
+  - learncpp
+- Jenkins
+  - Jenkins docs
+- Docker
+    - Learn docker docs
+- Ansible
+  - Ansible docs
 
 
 ## Topics Needing Coverage:
-- Jenkins
 - Architecture and design
 - DSA
 - TDD BDD
-- Ansible
 - Computer science networks and security
 - Behave
+  - behave docs
 - Powershell
+  - Microsoft learn
 - Artifactory
 
 - Server types
 - SQL
+  - postgresql docs
 - AWS
-- Docker
+  - Amazon docs
 - K8
+  - Learn kubernetes docs
 - Deployment
 - Embedded
 - Web dev
+  - MDN docs with django
 - OS and system config
 - Windows
 - Linux

@@ -6,3 +6,6 @@
 # Groovy files
 lib
 
+# Maven files
+target
+

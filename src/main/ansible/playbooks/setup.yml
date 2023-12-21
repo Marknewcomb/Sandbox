@@ -1,0 +1,8 @@
+---
+- name: Main Playbook
+  hosts: localhost
+
+  tasks:
+    - name: Update All
+      apk:
+        upgrade: true
