@@ -2,25 +2,25 @@
 
 ## Topics Covered:
 - Python
-  - python docs
+  - python docs ***Chapter 3
 - Bash
-  - Wooledge wiki bash
+  - Wooledge wiki bash ***Commands and Arguments
 - Java
-  - dev . java docs
+  - Jenkov ***Essential Dev Skills
 - Junit
-  - junit5 user guide
+  - junit5 user guide (not started)
 - Git
-  - git scm
+  - git scm (not started)
 - Maven
-  - Maven docs
+  - Maven docs (not started)
 - C++
-  - learncpp
+  - learncpp ***Chapter 1.9
 - Jenkins
-  - Jenkins docs
+  - Jenkins docs (not started)
 - Docker
-    - Learn docker docs
+    - Learn docker docs (not started)
 - Ansible
-  - Ansible docs
+  - Ansible docs (not started)
 
 
 ## Topics Needing Coverage:

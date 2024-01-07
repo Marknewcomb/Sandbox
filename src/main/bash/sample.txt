@@ -1,0 +1,6 @@
+First Name,Last Name,Force Affiliation,Power Level,Home Planet
+Luke,Skywalker,Jedi Master,90,Tatooine
+Kylo,Ren,Sith/Jedi,88,Starkiller Base
+Rey,Palpatine,Jedi Knight,85,Jakuu
+Darth,Sidious,Sith Lord,95,Naboo
+Luke,Skywalker,Jedi Master,90,Tatooine

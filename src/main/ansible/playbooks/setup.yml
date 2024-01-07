@@ -1,9 +1,9 @@
 ---
-- name: com.newcomb.Main Playbook
-  hosts: localhost
+- name: Main Playbook
+  hosts: test001
   become: yes
 
   tasks:
     - name: Update All
       apk:
-        upgrade: true
+        upgrade: yes
