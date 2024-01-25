@@ -107,27 +107,27 @@ Update configuration files to support the build of the new TCS host and the 13.0
 	   cmfsvs5gctcs002 # Old redhat 7, this is temporary
 
   2. HOST VARS -
+    /opt/data/site_config/ansible/inventory/host_vars
 
-	  /opt/data/site_config/ansible/inventory/host_vars
-
-		- TCS Host
+		1. TCS Host
 			- UPDATE host_vars file for tcs001 host 
-			- Confirm vm_static_ip is the correct IP (should be the existing .158)
-			- Remove ansible_user if defined
-			- The resulting file should look something like the following:
+				- Confirm vm_static_ip is the correct IP (should be the existing .158)
+				- Remove ansible_user if defined
+			
+			The resulting file should look something like the following:
 
 			13.0 Host Vars update - template:
 			
-			  vm_static_ip: 10.2.25.158
-			  ansible_ssh_host: "{{ vm_static_ip }}"
+			   vm_static_ip: 10.2.25.158
+			   ansible_ssh_host: "{{ vm_static_ip }}"
 
-		- CREATE a host vars file for the tcs002 old/tcs host and add a line to point to the correct artifactory.
+		2. CREATE a host vars file for the tcs002 old/tcs host and add a line to point to the correct artifactory.
 
 				cd /opt/data/site_config/ansible/inventory/host_vars
 				cp <OLDTCS_001>.yml <NEWTCS_002>.yml
 				cat "artifactory_url: \"https://{{ infra_subnet }}.158:8081/artifactory\"" >> <NEWTCS_002>.yml
 
-		- Other Hosts
+		3. Other Hosts
 
 			- With the new way of providing credentials, the ansible_user: root variable in the Linux host vars files will cause issues for command-line hardening/agent installation.
 			- Update all linux host_vars files to remove ansible_user.
