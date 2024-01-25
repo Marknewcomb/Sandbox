@@ -8,24 +8,24 @@ This procedure outlines the steps required in order to upgrade a site to the 13.
 ## Table of Contents
 1. [Prerequisites](#prerequisites)
 1. [Procedures](#procedures)
-    1. [Steps to Execute on the Old TCS](#oldTCS)
+    1. [Steps to Execute on the Old TCS](#oldtcs)
 	    1. [Take a Snapshot and Save Configurations](#snapshot)
-	    2. [Deploy 13.0 Release](#deploy13)
+	    2. [Deploy 13.0 Release](#deploythirteen)
 	    3. [Prepare Configuration Files for 13.0](#prepare)
-	    4. [Create the Ansible Vault File](#createVault)
-	    5. [Build a VM Template](#buildTemplate)
-	    6. [Re-IP and Rename the Existing TCS](#renameTCS)
-	    7. [Run Playbook to Create the New TCS](#createTCS)
-    2. [Steps to Execute on the New TCS](#newTCS)
+	    4. [Create the Ansible Vault File](#createvault)
+	    5. [Build a VM Template](#buildtemplate)
+	    6. [Re-IP and Rename the Existing TCS](#renametcs)
+	    7. [Run Playbook to Create the New TCS](#createtcs)
+    2. [Steps to Execute on the New TCS](#newtcs)
 	    1. [Copy and Extract 12.5 and 13.0 Install Kits](#extract)
-	    2. [Fix Certificates](#fixCerts)
+	    2. [Fix Certificates](#fixcerts)
 	    3. [Manual Artifactory Setup](#artifactory)
-	    4. [Deploy 12.5 Install Kits](#deploy12)
-	    5. [Deploy 13.0 Install Kits](#deploy13NewTCS)
+	    4. [Deploy 12.5 Install Kits](#deploytwelve)
+	    5. [Deploy 13.0 Install Kits](#deploythirteennewtcs)
 	    6. [Populate Configuration and Credentials](#credentials)
 	    7. [Configure Jenkins User](#jenkins)
 	    8. [Setup Configuration Synchronization Key](#sync)
-    3. [Post-Deploy Steps](#postDeploy)
+    3. [Post-Deploy Steps](#postdeploy)
 
 Prerequisites <a name=prerequisites></a>
 -------------
@@ -51,7 +51,7 @@ The following are pre-requisites for the 13.0 installation and toolchain rebuild
 Procedures <a name=procedures></a>
 ----------
 
-### Steps to Execute on the Old TCS <a name=oldTCS></a>
+### Steps to Execute on the Old TCS <a name=oldtcs></a>
 
 #### Take a Snapshot and Save Configurations<a name=snapshot></a>
 
@@ -67,7 +67,7 @@ Procedures <a name=procedures></a>
 	cp /opt/data/toolchain/patching_config/linux/*<SITE>*.yml patching_config/linux
 	cp /opt/data/toolchain/patching_config/windows/*<SITE>*.yml patching_config/windows
 	
-#### Deploy 13.0 Release<a name=deploy13></a>
+#### Deploy 13.0 Release<a name=deploythirteen></a>
 
 Some new functionality from the 13.0 release is necessary on the OLD TCS in order to prep for the RHEL 8/NEW TCS Build. Extract and install 13.0.
 
@@ -204,7 +204,7 @@ Update configuration files to support the build of the new TCS host and the 13.0
 				   manager_dn: "{{ vault_ad_join_domain_username }}@{{ ad_domain }}"
 				   manager_password: "{{ vault_ad_join_domain_password }}"
 		
-#### Create the Ansible Vault File<a name=createVault></a>
+#### Create the Ansible Vault File<a name=createvault></a>
 
 With 13.0 the credentials for command line ansible use will be stored in a central vault file instead of a personal vault file. This needs to be setup on the OLD TCS host in order to support the build of the NEW TCS.
 
@@ -231,7 +231,7 @@ With 13.0 the credentials for command line ansible use will be stored in a centr
 	| vault_windows_admin_username/password        | svccmX-winadm                                                              |
 	| vault_windows_administrator_password              | Existing value                                                                   |
 
-#### Build a VM Template<a name=buildTemplate></a>
+#### Build a VM Template<a name=buildtemplate></a>
 
 1. Confirm that the content library exists in vcenter as per release notes and matches name in the site group_vars
 
@@ -257,7 +257,7 @@ With 13.0 the credentials for command line ansible use will be stored in a centr
 	   -e@/opt/data/site_config/ansible/inventory/group_vars/<SITE>.yml
 5. When complete, browse the content library and confirm existence of new template.
 
-#### Re-IP and Rename the Existing TCS<a name=renameTCS></a>
+#### Re-IP and Rename the Existing TCS<a name=renametcs></a>
 
 The old TCS must be re-iped so the new one about to be built can have the original name and IP.
 
@@ -277,7 +277,7 @@ The old TCS must be re-iped so the new one about to be built can have the origin
 
 6. From vCenter, rename the old host to the new hostname.
 
-#### Run Playbook to Create the New TCS<a name=createTCS></a>
+#### Run Playbook to Create the New TCS<a name=createtcs></a>
 
 Run the toolchain playbook. This will take about an hour.
 
@@ -288,7 +288,7 @@ The OLDTCSHOST_IP is the IP we just switched to ".159". This is necessary to ens
  
 	ansible-playbook -i /opt/data/site_config/ansible/inventory/<SITE>.ini -i /opt/data/toolchain/ansible/inventory/default.ini -e@/opt/data/toolchain/credentials/ansible-vault.yml playbooks/toolchain.yml -e artifactory_url="https://<OLDTCSHOST_IP>:8081/artifactory" --limit <NEWTCSHOST_NAME>
 
-### Steps to Execute on the New TCS <a name=newTCS></a>
+### Steps to Execute on the New TCS <a name=newtcs></a>
 
 #### Copy and Extract 12.5 and 13.0 Install Kits<a name=extract></a>
 
@@ -307,7 +307,7 @@ Completing these steps may take an hour or more given the size of the files.
 	sudo tar xzf iac-release-13.0.0-bundle-1705556288-installkit.tar.gz
 	sudo tar xzf iac-release-13.0.0-code-only-1705555953-installkit.tar.gz
 
-#### Fix Certificates<a name=fixCerts></a>
+#### Fix Certificates<a name=fixcerts></a>
 
 The TCS needs proper certs, not self-signed ones, there are scripts in the 13.0 install kit to fix this.  
 
@@ -347,7 +347,7 @@ The service account to use is svccmX-linux where X varies by site
 Click 'backup-daily' in the 'Key' column.
 		- Un-check the 'Enabled' box at the top, then click 'Save'.
 
-#### Deploy 12.5 Install Kit<a name=deploy12></a>
+#### Deploy 12.5 Install Kit<a name=deploytwelve></a>
 
 Install 12.5 Install Kit to populate the patching content and do maven initial setup on the NEW TCS host.
 
@@ -368,7 +368,7 @@ Install 12.5 Install Kit to populate the patching content and do maven initial s
 	   which xmvn # should find /opt/rh/maven30/root/usr/bin/xmvn
 4. Log into artifactory and navigate to the iactc-delivered repository. Confirm that 12.5.0 content is found under com/rtx/iac/patching
 
-#### Deploy 13.0 Install Kits<a name=deploy13NewTCS></a>
+#### Deploy 13.0 Install Kits<a name=deploythirteennewtcs></a>
 
 Deploy both the 3rd Party (bundle) and code.
 
@@ -432,7 +432,7 @@ Log into the destination host and confirm your configuration was copied. You sho
 	ssh $USER@<REMOTE_TCS>
 	ls -l /global01/toolchain
 
-### Post-Deploy Steps <a name=postDeploy></a>
+### Post-Deploy Steps <a name=postdeploy></a>
 
 To ensure credentials and inventory files are correct it is recommended to test functionality after completing the release. Note that no changes are expected based on these tests since the site should have been completely patched and hardened withthe 12.5 baseline and no updates in this area are present in the 13.0 release.
 
